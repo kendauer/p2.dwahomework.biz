@@ -1,11 +1,36 @@
-<p>
-	Hello World! You have successfully spawned a new application.
-</p>
+<div class="outerBox">
 
-<p>
-	This message is being triggered via the c_index.php controller, within the index() method.
-</p>
+<div class="innerBox">
+<h1>Welcome to <?=APP_NAME?>
 
-<p>
-	<strong>Since everything is in working order, you should now delete <?php echo APP_PATH?>diagnostics.php</strong>
-</p>
+<?php if($user) echo ', '.$user->first_name; ?></h1>
+
+
+<?php if($user): ?>
+	Hello <?=$user->first_name;?>
+	
+<?php else: ?>
+	Welcome! Squeak is an easy-to-use micro-blog designed for speed and simplicity. Please
+	<a href="/users/signup">Sign up</a> or: 
+	
+	<h2>Log in</h2>
+
+<form method='POST' action='/users/p_login'>
+
+Email: <input type='text' name='email'><br>
+Password: <input type='password' name='password'><br>
+
+<input type='Submit' value='Log in'>
+
+</form>
+<?php endif; ?>
+
+
+
+
+
+
+
+
+</div>
+</div>
