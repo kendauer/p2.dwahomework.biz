@@ -19,6 +19,7 @@ public function index() {
 
     # Query
     $q = 'SELECT 
+    		posts.post_id,
             posts.content,
             posts.created,
             posts.user_id AS post_user_id,
@@ -35,8 +36,16 @@ public function index() {
     # Run the query, store the results in the variable $posts
     $posts = DB::instance(DB_NAME)->select_rows($q);
 
-    # Pass data to the View
-    $this->template->content->posts = $posts;
+            $q = 'SELECT users_posts.post_id AS liked_id
+                FROM users_posts 
+                INNER JOIN posts 
+                    ON posts.post_id = users_posts.post_id
+                WHERE users_posts.user_id = '.$this->user->user_id;
+
+            $like = DB::instance(DB_NAME)->select_array($q, 'liked_id');
+
+            $this->template->content->posts = $posts;
+            $this->template->content->like = $like;
 
     # Render the View
     echo $this->template;
@@ -56,6 +65,9 @@ public function index() {
 
     public function p_add() {
 
+		# basic sanitization of post data...
+    	$_POST = DB::instance(DB_NAME)->sanitize($_POST);
+
         # Associate this post with this user
         $_POST['user_id']  = $this->user->user_id;
 
@@ -67,8 +79,8 @@ public function index() {
         # Note we didn't have to sanitize any of the $_POST data because we're using the insert method which does it for us
         DB::instance(DB_NAME)->insert('posts', $_POST);
 
-        # Quick and dirty feedback
-        echo "Your post has been added. <a href='/posts/add'>Add another</a>";
+        # Send them to the posts list where they can view their new post
+        Router::redirect("/posts");
 
     }
     
@@ -133,6 +145,34 @@ public function unfollow($user_id_followed) {
     Router::redirect("/posts/users");
 
 }
+
+public function like($post_id) {
+
+    # Prepare the data array to be inserted
+    $data = Array(
+        "user_id" => $this->user->user_id,
+        "post_id" => $post_id,
+        );
+
+    # Do the insert
+    DB::instance(DB_NAME)->insert('users_posts', $data);
+
+    # Send them back
+    Router::redirect("/posts");
+
+}
+
+public function unlike($post_id) {
+
+    # Delete this connection
+    $where_condition = 'WHERE user_id = '.$this->user->user_id.' AND post_id = '.$post_id;
+    DB::instance(DB_NAME)->delete('users_posts', $where_condition);
+
+    # Send them back
+    Router::redirect("/posts");
+
+}
+
     
 }
  # end of the class

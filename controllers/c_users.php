@@ -29,27 +29,56 @@ class users_controller extends base_controller {
     Process the sign up form
     -------------------------------------------------------------------------------------------------*/
     public function p_signup() {
+    
+    	# basic sanitization of post data...
+    	$_POST = DB::instance(DB_NAME)->sanitize($_POST);
+    
+    	# query the database to see if the email used to sign up already exists in the db.
+    	$q = "SELECT * FROM users WHERE email = '".$_POST['email']."'"; 
+    	$user_exists = DB::instance(DB_NAME)->select_rows($q);
+    	
+    	# if the email address has already been used, send them to the homepage page. would be nice to throw an error message
+		#here
+    		if(!empty($user_exists)){
+	    		Router::redirect('/');
+    		}
+    		
+    		#if the email address has not been used, create a new account. Plus one feature, send them an email to notify them
+    		else {
 	    	    
-	    # Mark the time
+	    # Mark the time the account was created
 	    $_POST['created']  = Time::now();
 	    
-	    # Hash password
+	    # Hash password using sha1 and then salt it with PASSWORD_SALT
 	    $_POST['password'] = sha1(PASSWORD_SALT.$_POST['password']);
 	    
-	    # Create a hashed token
+	    # Create a hashed token using sha1 and TOKEN_SALT
 	    $_POST['token']    = sha1(TOKEN_SALT.$_POST['email'].Utils::generate_random_string());
 	    
-	    # Insert the new user    
+	    # Insert the new user into the database   
 	    DB::instance(DB_NAME)->insert_row('users', $_POST);
 	    
-	    # Send them to the login page
+	    #lastly, send the user an email letting them know they created an account.
+	    $to = $_POST['email'];
+		$subject = "Squeak Registration";
+		$message = "Your new account has successfully been created.";
+		$from = 'kennethdauer@dwahomework.biz';
+		$headers = "From:" . $from;  
+		  
+	    if(!$this->user) {
+	            	mail($to, $subject, $message, $headers);
+                }    
+	    
+	    }
+	    
+	    # and finally throw them back to the login page
 	    Router::redirect('/users/login');
 	    
     }
 
 
 	/*-------------------------------------------------------------------------------------------------
-	Display a form so users can login
+	Display a form so users can login. Calls the v_users_login view.
 	-------------------------------------------------------------------------------------------------*/
     public function login() {
     
@@ -124,17 +153,20 @@ class users_controller extends base_controller {
 	-------------------------------------------------------------------------------------------------*/
     public function profile($user_name = NULL) {
 		
-		# Only logged in users are allowed...
+		# Only logged in users are allowed, sends all others to index where they can sign up or log in
 		if(!$this->user) {
-			die('Members only. <a href="/users/login">Login</a>');
+			Router::redirect('/');
 		}
 		
 		# Set up the View
 		$this->template->content = View::instance('v_users_profile');
-		$this->template->title   = "Profile";
+		$this->template->title   = $this->user->user_id."'s Profile";
 				
-		# Pass the data to the View
+		# Pass username and the user's posts to the view
+		$q = 'SELECT * FROM posts WHERE user_id = '.$this->user->user_id;
 		$this->template->content->user_name = $user_name;
+		$posts = DB::instance(DB_NAME)->select_rows($q);
+    	$this->template->content->posts = $posts;
 		
 		# Display the view
 		echo $this->template;

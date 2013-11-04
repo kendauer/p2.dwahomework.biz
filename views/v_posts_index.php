@@ -13,6 +13,14 @@
         <?=Time::display($post['created'])?>
     </time>
 
+	<?php if(isset($like[$post['post_id']])): ?>
+		<a href="/posts/unlike/<?=$post['post_id']?>">Unlike</a>
+		
+    <?php else: ?>
+		<a href="/posts/like/<?=$post['post_id']?>">Like</a>
+    <?php endif; ?>
+
+
 </article>
 
 <?php endforeach; ?>
