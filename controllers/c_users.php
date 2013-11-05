@@ -14,13 +14,12 @@ class users_controller extends base_controller
     /*-------------------------------------------------------------------------------------------------
     Display a form so users can sign up	
     -------------------------------------------------------------------------------------------------*/
-    public function signup($error = NULL, $error2 = NULL)
+    public function signup($error)
     {
         # Set up the view
         $this->template->content        = View::instance('v_users_signup');
         # Pass data to the view if there was an error generated
         $this->template->content->error = $error;
-        $this->template->content->error2 = $error2;
         # Render the view
         echo $this->template;
     }
@@ -42,12 +41,12 @@ class users_controller extends base_controller
         # if the email address has already been used, send them to the homepage page. would be nice to throw an error message
         #here
         if (!empty($user_exists)) {
-            Router::redirect("/users/signup/error");
+            Router::redirect("/users/signup/user-exists");
         }
         
 		elseif(empty($first_name) || empty($last_name) || empty($password))
         {
-        Router::redirect("/users/signup/error2"); 
+        Router::redirect("/users/signup/blank-fields"); 
         }
         
         #if the email address has not been used, create a new account. Plus one feature, send them an email to notify them

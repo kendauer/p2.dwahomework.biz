@@ -11,7 +11,7 @@
 			Email <input type='text' name='email'><br>
  
  			<!-- if the page receives an error from the controller, tell the user the email address has already been used -->
- 			<?php if(isset($error)): ?>
+ 			<?php if(isset($error) && $error == 'user-exists'): ?>
         		<div class='error'>
             	This email address has already been used!
         		</div>
@@ -20,7 +20,7 @@
 
 			Password <input type='password' name='password'><br>
 
- 			<?php if(isset($error2)): ?>
+ 			<?php if(isset($error) && $error == 'blank-fields'): ?>
         		<div class='error'>
             		All fields must be filled out!
         		</div>
