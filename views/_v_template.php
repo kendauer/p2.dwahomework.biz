@@ -18,8 +18,7 @@
    
       <div id="title">
          <h2>
-            <a href="/">Squeak
-            <a>
+            <a href="/">Squeak</a>
          </h2>
       </div>
       

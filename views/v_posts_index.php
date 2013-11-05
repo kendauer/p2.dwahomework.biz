@@ -21,7 +21,7 @@
 		
     			<?php else: ?>
 					<a href="/posts/like/<?=$post['post_id']?>">Like</a>
-
+					<br>
 				<?php endif; ?>
 
 			</article>

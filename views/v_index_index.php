@@ -14,16 +14,16 @@
       
       		<div id="post"><?=$post['content']?></div>
       		<div id="time"><?=Time::display($post['created'])?></div>
-      		<br>
-      
+
      	 	<?php if(isset($like[$post['post_id']])): ?>
-      			<a href="/posts/unlike/<?=$post['post_id']?>">Unlike</a>
+      			<a href="/posts/unlike/<?=$post['post_id']?>">Unlike</a><br>
       
      	 	<?php else: ?>
-      			<a href="/posts/like/<?=$post['post_id']?>">Like</a>
+      			<a href="/posts/like/<?=$post['post_id']?>">Like</a><br>
       
      	 	<?php endif; ?>
-      
+	 	 	
+	 	 	<br>
       	<?php endforeach;?>  
       
       <!-- otherwise, shows the user a log in screen and a link to the sign up page -->
