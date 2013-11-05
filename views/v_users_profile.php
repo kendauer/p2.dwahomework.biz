@@ -1,6 +1,7 @@
 <div class="outerBox">
 	
-	<h2><?=$user->first_name?></h2>
+	<!-- very basic profile page showing some basic user info and a listing of their posts -->
+	<h2><?=$user->first_name?><?=$user->last_name?></h2>
 	
 	<h2>My Posts</h2>
 	<?php foreach($posts as $post): ?>
@@ -11,11 +12,4 @@
 	
 	<?php endforeach;?>  
 	
-	<?php if(isset($error)): ?>
-        <div class='error'>
-            Image upload failed, please try again.
-        </div>
-        <br>
-    <?php endif; ?>
-
 </div>

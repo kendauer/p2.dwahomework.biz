@@ -1,28 +1,31 @@
 <div class="outerBox">
 
-<div class="innerBox"
-<?php foreach($posts as $post): ?>
+	<div class="innerBox">
 
-<article>
+		<!-- uses a for each statement to iterate through all of the posts from users the logged in user follows. -->
+		<?php foreach($posts as $post): ?>
 
-    <h1><?=$post['first_name']?> <?=$post['last_name']?> posted:</h1>
+			<article>
 
-    <p><?=$post['content']?></p>
+ 		    	<h1><?=$post['first_name']?> <?=$post['last_name']?> posted:</h1>
 
-    <time datetime="<?=Time::display($post['created'],'Y-m-d G:i')?>">
-        <?=Time::display($post['created'])?>
-    </time>
+    			<p><?=$post['content']?></p>
 
-	<?php if(isset($like[$post['post_id']])): ?>
-		<a href="/posts/unlike/<?=$post['post_id']?>">Unlike</a>
+		  	  <time datetime="<?=Time::display($post['created'],'Y-m-d G:i')?>">
+        		<?=Time::display($post['created'])?>
+    			</time>
+    		
+    			<!-- conditional statement to see if user likes a post. If so, show unlike, if not, show like -->
+				<?php if(isset($like[$post['post_id']])): ?>
+					<a href="/posts/unlike/<?=$post['post_id']?>">Unlike</a>
 		
-    <?php else: ?>
-		<a href="/posts/like/<?=$post['post_id']?>">Like</a>
-    <?php endif; ?>
+    			<?php else: ?>
+					<a href="/posts/like/<?=$post['post_id']?>">Like</a>
 
+				<?php endif; ?>
 
-</article>
+			</article>
 
-<?php endforeach; ?>
-</div>
+		<?php endforeach; ?>
+	</div>
 </div>
