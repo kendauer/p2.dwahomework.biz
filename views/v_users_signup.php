@@ -19,15 +19,13 @@
         	<?php endif; ?>
 
 			Password <input type='password' name='password'><br>
- 
- 			<!-- Currently not being used, when working, will show an error message saying all fields must be filled out
+
  			<?php if(isset($error2)): ?>
         		<div class='error'>
             		All fields must be filled out!
         		</div>
         		<br>
     		<?php endif; ?>
-			--> 
 			
 			<input type='submit' value='Sign Up'>
 			

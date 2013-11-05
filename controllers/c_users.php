@@ -14,12 +14,13 @@ class users_controller extends base_controller
     /*-------------------------------------------------------------------------------------------------
     Display a form so users can sign up	
     -------------------------------------------------------------------------------------------------*/
-    public function signup($error = NULL)
+    public function signup($error = NULL, $error2 = NULL)
     {
         # Set up the view
         $this->template->content        = View::instance('v_users_signup');
         # Pass data to the view if there was an error generated
         $this->template->content->error = $error;
+        $this->template->content->error2 = $error2;
         # Render the view
         echo $this->template;
     }
@@ -44,12 +45,10 @@ class users_controller extends base_controller
             Router::redirect("/users/signup/error");
         }
         
-        /* This bit of code doesn't quite work yet, it's intended to pass an error letting the user know some required field was blank.
-        elseif(empty($first_name) || empty($last_name) || empty($password))
+		elseif(empty($first_name) || empty($last_name) || empty($password))
         {
         Router::redirect("/users/signup/error2"); 
         }
-        */
         
         #if the email address has not been used, create a new account. Plus one feature, send them an email to notify them
         else {

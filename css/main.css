@@ -5,6 +5,20 @@ body {
 	background-color: #f1f0eb;
 }
 
+/*stle for the title/banner of the page */
+#title {
+	text-align: center;
+	font-variant: small-caps;
+	font-size: 2.2em;
+	color: black;
+}
+
+#title a {
+	text-decoration: none;
+	color: black;
+}
+
+/* style for the navigation menu */
 #menu {
 	text-align: center;
 	color: rgba(162,161,165,0.63)
@@ -18,18 +32,7 @@ body {
 	font-weight: bold;
 }
 
-#title {
-	text-align: center;
-	font-variant: small-caps;
-	font-size: 2.2em;
-	color: black;
-}
-
-#title a {
-	text-decoration: none;
-	color: black;
-}
-
+/* the outerbox that wraps all content */
 .outerBox {
 	width: 600px;
 	margin-left: 200px;
@@ -37,6 +40,7 @@ body {
 	padding-bottom: 100px;
 }
 
+/* style for the actual content itself */
 .innerBox {
 	padding-top: 50px;
 	padding-left: 50px;
@@ -45,12 +49,14 @@ body {
 	font-size: 1.20em;
 }
 
+/* style for the page footer */
 footer {
 	padding-top: 1em;
 	text-align: center;
 	font-size: .75em;
 }
 
+/* for any error messages */
 .error {
 	color: red;
 }
