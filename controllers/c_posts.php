@@ -13,11 +13,14 @@ class posts_controller extends base_controller
         }
     }
     
-    public function index()
+    public function index($confirmation)
     {
         
-        # Set up the View and give it a title
+        # Set up the View 
         $this->template->content = View::instance('v_posts_index');
+        #Pass along the confirmation
+        $this->template->content->confirmation = $confirmation;
+        #Give the page a title
         $this->template->title   = "All Posts";
         
         # Query to show the posts of the users the logged in user is following
@@ -86,7 +89,7 @@ class posts_controller extends base_controller
         DB::instance(DB_NAME)->insert('posts', $_POST);
         
         # Send them to the posts list where they can view their new post
-        Router::redirect("/posts");
+        Router::redirect("/posts/index/confirmation");
         
     }
     

@@ -2,6 +2,13 @@
 
 	<div class="innerBox">
 
+		 <?php if(isset($confirmation)): ?>
+        	<div class='error'>
+            	Post added!
+        	</div>
+        <br>
+        <?php endif; ?>
+		
 		<!-- uses a for each statement to iterate through all of the posts from users the logged in user follows. -->
 		<?php foreach($posts as $post): ?>
 
