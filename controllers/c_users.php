@@ -14,7 +14,7 @@ class users_controller extends base_controller
     /*-------------------------------------------------------------------------------------------------
     Display a form so users can sign up	
     -------------------------------------------------------------------------------------------------*/
-    public function signup($error)
+    public function signup($error = NULL)
     {
         # Set up the view
         $this->template->content        = View::instance('v_users_signup');
@@ -38,13 +38,13 @@ class users_controller extends base_controller
         $q           = "SELECT * FROM users WHERE email = '" . $_POST['email'] . "'";
         $user_exists = DB::instance(DB_NAME)->select_rows($q);
         
-        # if the email address has already been used, send them to the homepage page. would be nice to throw an error message
-        #here
+        # if the email address has already been used, send them to the homepage page. 
         if (!empty($user_exists)) {
             Router::redirect("/users/signup/user-exists");
         }
         
-		elseif(empty($first_name) || empty($last_name) || empty($password))
+        #if any fields are blank, throw an error message.
+		elseif(empty($first_name) || empty($last_name) || empty($password) || empty($email))
         {
         Router::redirect("/users/signup/blank-fields"); 
         }

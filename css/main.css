@@ -7,7 +7,7 @@ body {
 
 /*stle for the title/banner of the page */
 #title {
-	text-align: center;
+	margin-left: 400px;
 	font-variant: small-caps;
 	font-size: 2.2em;
 	color: black;
@@ -27,9 +27,18 @@ body {
 #menu a {
 	margin-left: 10px;
 	text-decoration: none;
-	color: #53255a;
-	font-size: large;
+	color: #a11010;
 	font-weight: bold;
+	font-variant: small-caps;
+	font-size: 1.2em;
+}
+
+hr.blue {
+	color: #669BB5;
+	background-color: #669BB5;
+	height: 3px;
+	width: 700px;
+	margin-left: 150px;
 }
 
 /* the outerbox that wraps all content */
