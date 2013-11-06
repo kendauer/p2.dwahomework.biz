@@ -7,7 +7,9 @@ body {
 
 /*stle for the title/banner of the page */
 #title {
-	margin-left: 400px;
+	width: 600px;
+	margin-left: 200px;
+	text-align: center;
 	font-variant: small-caps;
 	font-size: 2.2em;
 	color: black;
@@ -20,6 +22,8 @@ body {
 
 /* style for the navigation menu */
 #menu {
+	width: 600px;
+	margin-left: 200px;
 	text-align: center;
 	color: rgba(162,161,165,0.63)
 }
@@ -37,8 +41,8 @@ hr.blue {
 	color: #669BB5;
 	background-color: #669BB5;
 	height: 3px;
-	width: 700px;
-	margin-left: 150px;
+	width: 600px;
+	margin-left: 200px;
 }
 
 /* the outerbox that wraps all content */
@@ -47,6 +51,8 @@ hr.blue {
 	margin-left: 200px;
 	background-color: white;
 	padding-bottom: 100px;
+	border-radius:25px;
+	box-shadow: 7px 7px 3px #888888;
 }
 
 /* style for the actual content itself */
